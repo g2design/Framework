@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+		<script>document.cookie = 'resolution=' + Math.max(screen.width, screen.height) + ("devicePixelRatio" in window ? "," + devicePixelRatio : ",1") + '; path=/';</script>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+		<base href="{{ base_url }}">
+		<title>{{ meta_title }}</title>
+		<meta name ="description" content="{{ meta_description }}">
+		{{ meta_extra }}
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		  <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+		  <script>
+		  if ( window.console === undefined ) {
+
+			window.console = {
+				log : function(){}
+			}
+
+			}
+			</script>
+		<![endif]-->
+
+    </head>
+
+    <body>
+		{{ content }}
+    </body>
+</html>
