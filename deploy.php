@@ -7,6 +7,9 @@
  * 		https://gist.github.com/1809044
  */
 //A test small cha TEST TEST
+
+
+// TESt
 $commands = array(
 	'echo $PWD',
 	'whoami',
