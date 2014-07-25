@@ -9,9 +9,9 @@
 //A test small cha TEST TEST
 $pass = $_GET['key_pass'];
 
-if($pass != 'G@DESIGN_DEPLOY_FAN'){
-	exit;
-}
+//if($pass != 'G@DESIGN_DEPLOY_FAN'){
+//	exit;
+//}
 
 // TESt
 $commands = array(
