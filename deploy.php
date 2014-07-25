@@ -12,6 +12,7 @@
 		'echo $PWD',
 		'whoami',
 		'git pull',
+		'git merge origin/Test',
 		'git status',
 		'git submodule sync',
 		'git submodule update',
