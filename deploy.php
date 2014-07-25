@@ -18,7 +18,7 @@ $commands = array(
 	'git submodule status',
 );
 
-// Run the commands for output
+// Run the 
 $output = '';
 foreach ($commands AS $command) {
 	// Run it
@@ -26,7 +26,7 @@ foreach ($commands AS $command) {
 	$handle = popen($command . '', 'r');
 	$tmp = '';
 	while ($str = fgets($handle)) {
-		$tmp .= $str.'<br>';
+		$tmp .= $str.'';
 	}
 	pclose($handle);
 
