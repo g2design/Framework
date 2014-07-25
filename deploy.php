@@ -25,7 +25,7 @@ $output = '';
 foreach ($commands AS $command) {
 	// Run it
 //	$tmp = shell_exec($command);
-	$handle = popen($command . '', 'r');
+	$handle = popen($command . ' 2>&1', 'r');
 	$tmp = '';
 	while ($str = fgets($handle)) {
 		$tmp .= $str.'';
