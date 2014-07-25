@@ -7,7 +7,11 @@
  * 		https://gist.github.com/1809044
  */
 //A test small cha TEST TEST
+$pass = $_GET['key_pass'];
 
+if($pass != 'G@DESIGN_DEPLOY_FAN'){
+	exit;
+}
 
 // TESt
 $commands = array(
