@@ -11,8 +11,7 @@
 	$commands = array(
 		'echo $PWD',
 		'whoami',
-		'git fetch origin',
-		'git merge origin/Test',
+		'git pull origin Test',
 		'git status',
 		'git submodule sync',
 		'git submodule update',
