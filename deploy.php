@@ -7,7 +7,6 @@
  * 		https://gist.github.com/1809044
  */
 //A test small cha TEST TEST
-// The commands
 $commands = array(
 	'echo $PWD',
 	'whoami',
@@ -18,7 +17,7 @@ $commands = array(
 	'git submodule status',
 );
 
-// Run the 
+// Run the
 $output = '';
 foreach ($commands AS $command) {
 	// Run it
