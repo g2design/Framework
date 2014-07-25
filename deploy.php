@@ -6,7 +6,7 @@
 	 *
 	 *		https://gist.github.com/1809044
 	 */
-	 //A test small change
+	 //A test small cha
 	// The commands
 	$commands = array(
 		'echo $PWD',
