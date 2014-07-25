@@ -9,6 +9,7 @@ define('ROOT_DIR', realpath(dirname(__FILE__)) .'/');
 define('APP_DIR', ROOT_DIR .'application');
 
 require_once '../MVC_Router.php';
+/// A donwoww
 
 $system = MVC_Router::getInstance();
 $system->register_package_directory(APP_DIR);
