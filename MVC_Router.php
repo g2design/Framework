@@ -133,7 +133,7 @@ class MVC_Router {
 			$this->libraries[] = $directory . ( Mvc_Functions::endsWith($directory, DIRECTORY_SEPARATOR) ? '' : DIRECTORY_SEPARATOR);
 			set_include_path(get_include_path().PATH_SEPARATOR.$directory);
 		} else {
-			throw new Exception("Directory $directory does not exist");
+			//throw new Exception("Directory $directory does not exist");
 		}
 	}
 
