@@ -7,24 +7,43 @@ $commands = array(
 	'git status'
 );
 
-// Run the
-$output = '';
-foreach ($commands AS $command) {
-	// Run it
+function run_commands($commands) {
+	// Run the
+	$output = '';
+	foreach ($commands AS $command) {
+		// Run it
 //	$tmp = shell_exec($command);
-	$handle = popen($command . ' 2>&1', 'r');
-	$tmp = '';
-	while ($str = fgets($handle)) {
-		$tmp .= $str.'';
-	}
-	pclose($handle);
+		$handle = popen($command . ' 2>&1', 'r');
+		$tmp = '';
+		while ($str = fgets($handle)) {
+			$tmp .= $str . '';
+		}
+		pclose($handle);
 
-	// Output
-	$output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
-	$output .= htmlentities(trim($tmp)) . "\n";
+		// Output
+		$output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
+		$output .= htmlentities(trim($tmp)) . "\n";
+	}
+
+	return $output;
 }
 
+$output = run_commands($commands);
+
 // Make it pretty for manual user access (and why not?)
+
+if(!empty($_POST) && $_POST['password'] == $password) {
+	echo "POSTED";
+	$message = $_POST['message'];
+	if(empty($message)){
+		echo "Message must be filled in";
+	} else {
+		$message = addslashes($message);
+		$commands = ['git commit -am "'.$message.'"'];
+
+		run_commands($commands);
+	}
+}
 ?>
 <!doctype html>
 <html lang="en">
