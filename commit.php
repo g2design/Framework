@@ -4,7 +4,7 @@ $password = 'must$be@this$pass$word$';
 
 
 $commands = array(
-	'git diff --name-only'
+	'git status'
 );
 
 // Run the
