@@ -42,6 +42,13 @@ class MVC_Router {
 		//Add Directory to include path;
 		$path = dirname(__FILE__) . '/library';
 		set_include_path(get_include_path().PATH_SEPARATOR.$path);
+
+		// Add a error handler
+		set_error_handler([$this,'errors'], E_ERROR);
+	}
+
+	public function errors($number,$string,$file,$line,$context){
+		echo $string;
 	}
 
 	/**
