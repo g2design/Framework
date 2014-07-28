@@ -27,6 +27,8 @@ function run_commands($commands) {
 
 // Make it pretty for manual user access (and why not?)
 
+
+
 if(!empty($_POST) && $_POST['password'] == $password) {
 	$message = $_POST['message'];
 	if(empty($message)){
