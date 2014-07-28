@@ -36,8 +36,8 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 	} else {
 		$message = addslashes($message);
 		$commands = [
-			'git add -A .',
-			'git commit -am "'.$message.'"',
+			'git add -A *',
+			'git commit -m "'.$message.'"',
 			'git push'
 		];
 
