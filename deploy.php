@@ -8,7 +8,7 @@
  */
 
 
-//A test small cha TEST TEST
+// Repository Settings
 $pass = $_GET['key_pass'];
 $auth_key = 'd7b22b3b76ce46076b8637ce429c19f2568120b1';
 $url = "$auth_key@github.com/g2design/Framework.git";
