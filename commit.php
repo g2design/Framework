@@ -48,6 +48,7 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 }
 
 $commands = array(
+	'git checkout origin/Test',
 	'git status'
 );
 $output = run_commands($commands);
