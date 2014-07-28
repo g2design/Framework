@@ -19,7 +19,7 @@ $commands = array(
 	'git init',
 	"git remote add origin $url",
 	'git fetch origin',
-	'git reset --hard',
+	'git reset --hard origin/Test',
 	'git status',
 	'git submodule sync',
 	'git submodule update',
