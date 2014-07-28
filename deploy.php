@@ -8,7 +8,8 @@
  */
 //A test small cha TEST TEST
 $pass = $_GET['key_pass'];
-
+$auth_key = 'd7b22b3b76ce46076b8637ce429c19f2568120b1';
+$url = "$auth_key@github.com/g2design/Framework.git";
 //if($pass != 'G@DESIGN_DEPLOY_FAN'){
 //	exit;
 //}
@@ -17,6 +18,8 @@ $pass = $_GET['key_pass'];
 $commands = array(
 	'echo $PWD',
 	'whoami',
+	'git init',
+	"git remote add origin $url".
 	'git pull origin Test',
 	'git status',
 	'git submodule sync',
