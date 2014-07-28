@@ -33,7 +33,6 @@ $output = run_commands($commands);
 // Make it pretty for manual user access (and why not?)
 
 if(!empty($_POST) && $_POST['password'] == $password) {
-	echo "POSTED";
 	$message = $_POST['message'];
 	if(empty($message)){
 		echo "Message must be filled in";
@@ -41,7 +40,9 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 		$message = addslashes($message);
 		$commands = ['git commit -am "'.$message.'"'];
 
-		run_commands($commands);
+		$out = run_commands($commands);
+
+		echo $out;
 	}
 }
 ?>
