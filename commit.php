@@ -36,8 +36,6 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 	} else {
 		$message = addslashes($message);
 		$commands = [
-			' git config --global user.name "Stephan"',
-			'git config --global user.email stephan@g2design.co.za',
 			'git add -A *',
 			'git commit -m "'.$message.'"',
 			'git push',
