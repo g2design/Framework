@@ -38,7 +38,10 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 		echo "Message must be filled in";
 	} else {
 		$message = addslashes($message);
-		$commands = ['git commit -am "'.$message.'"'];
+		$commands = [
+			'git commit -am "'.$message.'"',
+			'git push'
+		];
 
 		$out = run_commands($commands);
 
