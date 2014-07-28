@@ -10,12 +10,12 @@ define('APP_DIR', ROOT_DIR .'application');
 
 require_once '../MVC_Router.php';
 /// A donwoww
-exit('test');
 
 $system = MVC_Router::getInstance();
 $system->register_package_directory(APP_DIR);
 $system->set_default_package('index');
 $system->setup_db(ROOT_DIR.'config/database.ini');
+
 
 
 
