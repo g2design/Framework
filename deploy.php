@@ -20,7 +20,8 @@ $commands = array(
 	'whoami',
 	'git init',
 	"git remote add origin $url".
-	'git pull origin Test',
+	'git fetch origin',
+	'git reset --hard',
 	'git status',
 	'git submodule sync',
 	'git submodule update',
