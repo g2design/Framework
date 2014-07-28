@@ -15,7 +15,7 @@ $commands = array(
 	'echo $PWD',
 	'whoami',
 	'git init',
-	"git remote add origin $url".
+	"git remote add origin $url",
 	'git fetch origin',
 	'git reset --hard',
 	'git status',
