@@ -2,11 +2,6 @@
 $password = 'must$be@this$pass$word$';
 
 
-
-$commands = array(
-	'git status'
-);
-
 function run_commands($commands) {
 	// Run the
 	$output = '';
@@ -28,7 +23,7 @@ function run_commands($commands) {
 	return $output;
 }
 
-$output = run_commands($commands);
+
 
 // Make it pretty for manual user access (and why not?)
 
@@ -46,9 +41,14 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 
 		$out = run_commands($commands);
 
-		echo $out;
+		echo "<pre>$out</pre>";
 	}
 }
+
+$commands = array(
+	'git status'
+);
+$output = run_commands($commands);
 ?>
 <!doctype html>
 <html lang="en">
