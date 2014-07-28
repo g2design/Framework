@@ -38,7 +38,7 @@ if(!empty($_POST) && $_POST['password'] == $password) {
 		$commands = [
 			'git add -A *',
 			'git commit -m "'.$message.'"',
-			'git push origin Test',
+			'git push origin/Test',
 		];
 
 		$out = run_commands($commands);
