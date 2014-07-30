@@ -3,9 +3,9 @@
 class Mvc_Package extends Mvc_Base {
 	var $name = null;
 	static $instance = array();
-	
+
 	/**
-	 * 
+	 *
 	 * @return Mvc_Package
 	 */
 	public static function getInstance(){
@@ -13,11 +13,11 @@ class Mvc_Package extends Mvc_Base {
 		if(isset(self::$instance[$class])){
 			return self::$instance[$class];
 		} else {
-			self::$instance[$class] = new $class(); 
+			self::$instance[$class] = new $class();
 			return self::$instance[$class];
 		}
 	}
-	
+
 	function get_label() {
 		return 'test';
 	}
@@ -50,7 +50,7 @@ class Mvc_Package extends Mvc_Base {
 			} else {
 				echo "Controller not set up Correctly ACTIOn";
 			}
-			
+
 		}
 		$content = ob_get_clean();
 		return $content;
@@ -62,6 +62,7 @@ class Mvc_Package extends Mvc_Base {
 		if (file_exists($controller_uri)) {
 			require_once $controller_uri;
 			$classname = ucfirst(strtolower($controller)) . '_MVC_Controller';
+			@define('MVC_CONTROLLER',$controller);
 			$controller = new $classname;
 			return $controller;
 		} else {
@@ -73,7 +74,10 @@ class Mvc_Package extends Mvc_Base {
 		$action = strtolower($action);
 		$action = str_replace('-', '_', $action);
 		if (method_exists($controller_obj, $action)) {
-			
+
+
+			@define('MVC_ACTION',$action);
+			@define('MVC_ROUTE',MVC_CONTROLLER.'/'.MVC_ACTION);
 			/**
 			 * Check for a before function
 			 */
@@ -84,16 +88,16 @@ class Mvc_Package extends Mvc_Base {
 			if(method_exists($controller_obj, '__after')){
 				$controller_obj->__after($params, $action);
 			}
-			
+
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Returns Package Configuration options
-	 * 
+	 *
 	 * @return boolean|\Zend_Config_Ini
 	 */
 	public function get_config($file = 'package.ini'){
@@ -103,11 +107,11 @@ class Mvc_Package extends Mvc_Base {
 			return $config;
 		} else return false;
 	}
-	
+
 	private function __construct() {
-		
+
 	}
-	
+
 	/**
 	 * Special Controller Call. Only works with Contollers of type Mvc_Code_Controller
 	 * @param type $name
