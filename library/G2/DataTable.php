@@ -4,11 +4,16 @@ class G2_DataTable extends Mvc_Base {
 
 	private $filter, $functions = [], $renderers = [];
 	var $data, $type, $sql, $bindings, $limit = 10;
+	private $sql_query;
 
 	function add_query($type, $sql = '', $bindings = []) {
 		$this->type = $type;
 		$this->sql = $sql;
 		$this->bindings = $bindings;
+	}
+
+	function add_exec_query($sql_query){
+		$this->sql_query = $sql_query;
 	}
 
 	/**
@@ -50,7 +55,7 @@ class G2_DataTable extends Mvc_Base {
 	function render_value($field,$value,$data){
 		foreach($this->renderers as $render) {
 			if($render->field() == $field){
-				
+
 				$value = $render->render($field,$value,$data);
 			}
 		}
@@ -177,6 +182,11 @@ class G2_DataTable extends Mvc_Base {
 
 	function get_resultset() {
 
+		if(!empty($this->sql_query)){
+			$data = Mvc_Db::paginate_query($this->sql_query, $this->limit);
+
+		}
+
 		if (!empty($this->data)) {
 			if (isset($_GET['p']) && is_numeric($_GET['p'])) {
 				$p = $_GET['p'];
@@ -207,21 +217,24 @@ class G2_DataTable extends Mvc_Base {
 	}
 
 	function get_headers() {
+
 		if (isset($this->headers)) {
 			return $this->headers;
 		}
 		if (isset($this->data)) {
 			$first = reset($this->data);
 		} else {
+			$first = reset($this->get_resultset());
 
-			$first = reset(R::findAll($this->type, $this->sql, $this->bindings));
 		}
 		//Filter out all unneeded fields if set
 		if (isset($this->filter) && !empty($this->filter)) {
 			$first = reset($this->filter_out([$first], $this->filter));
 		}
-		if ($first) {
+		if (!is_array($first) && $first) {
 			return array_keys($first->export());
+		} else if(is_array($first) && !empty ($first)){
+			return array_keys($first);
 		} else
 			return [];
 	}

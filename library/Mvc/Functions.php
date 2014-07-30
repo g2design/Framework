@@ -91,7 +91,7 @@ class Mvc_Functions {
 			$arr = $_GET;
 		}
 		$string = [];
-		foreach($arr as $key => $value){
+		foreach ($arr as $key => $value) {
 			$key = urlencode($key);
 			$value = urlencode($value);
 			$string[] = "$key=$value";
@@ -113,13 +113,32 @@ class Mvc_Functions {
 		return $pageURL;
 	}
 
-	static function get_extension($file){
+	static function get_extension($file) {
 		$str = $file;
-		$i = strrpos($str,".");
-		if (!$i) { return ""; }
+		$i = strrpos($str, ".");
+		if (!$i) {
+			return "";
+		}
 		$l = strlen($str) - $i;
-		$ext = substr($str,$i+1,$l);
+		$ext = substr($str, $i + 1, $l);
 		return $ext;
+	}
+
+	/**
+	 * Determince location of connection user
+	 *
+	 * @return type
+	 */
+	static function get_location() {
+		if (!isset($_SESSION['framework_location'])) {
+			$ip = $_SERVER['REMOTE_ADDR'];
+			$details = file_get_contents("http://ipinfo.io/{$ip}/json");
+			$_SESSION['framework_location'] = $details;
+		} else {
+			$details = $_SESSION['framework_location'];
+		}
+
+		return json_decode($details);
 	}
 
 }
