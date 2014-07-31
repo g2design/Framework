@@ -222,7 +222,7 @@ class G2_DataTable extends Mvc_Base {
 			return $this->headers;
 		}
 		if (isset($this->data)) {
-			$first = reset($this->data);
+			$first = clone reset($this->data);
 		} else {
 			$first = reset($this->get_resultset());
 

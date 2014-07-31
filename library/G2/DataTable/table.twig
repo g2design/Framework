@@ -24,8 +24,7 @@
 				{% endif %}
 				{% for field, value in dataset %}
 				{%if field in headers %}
-				<td>{{ instance.render_value(field,value,dataset) }}</td>
-
+					<td>{{ instance.render_value(field,value,dataset) }}</td>
 				{%endif%}
 				{% endfor %}
 			</tr>

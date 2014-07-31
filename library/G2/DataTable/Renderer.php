@@ -6,6 +6,7 @@ class G2_DataTable_Renderer extends Mvc_Base {
 	private $thousands;
 	private $decimals;
 	private $currency;
+	private $function = null;
 
 	public function __construct($field) {
 		$this->field = $field;
@@ -16,6 +17,10 @@ class G2_DataTable_Renderer extends Mvc_Base {
 	}
 
 	function render($fieldname, $value, $row_data = []) {
+		if(!empty($this->function)){
+			$function = $this->function;
+			$value = $function($fieldname,$value,$row_data);
+		}
 
 		if (!empty($this->wrap)) {
 			$value = $this->render_wrap($value, $this->wrap);
@@ -24,7 +29,13 @@ class G2_DataTable_Renderer extends Mvc_Base {
 		if(!empty($this->currency)){
 			$value = $this->render_currency($value);
 		}
+
+
 		return $value;
+	}
+
+	function set_function($function){
+		$this->function = $function;
 	}
 
 	/**
