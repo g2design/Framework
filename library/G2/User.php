@@ -151,6 +151,37 @@ class G2_User {
 			return false;
 	}
 
+	public function prep_user_object($email, $username, $data = []) {
+		$user = R::dispense('user');
+		$user->email = $email;
+		$user->username = $username;
+
+		foreach ($data as $key => $value) {
+			$user->$key = $value;
+		}
+		$this->set_temp_user($user);
+		return $user;
+	}
+
+	public function load_user($email) {
+		$user = R::findOne('user', 'email = :email', ['email' => $email]);
+		if(!$user){
+			return false;
+		}
+		return $user;
+	}
+
+	public function get_temp_user() {
+		if (isset($_SESSION['user_temp'])) {
+			return unserialize($_SESSION['user_temp']);
+		} else
+			return R::dispense('user');
+	}
+
+	public function set_temp_user($user) {
+		$_SESSION['user_temp'] = serialize($user);
+	}
+
 	function __destruct() {
 		if ($this->user) {
 			R::store($this->user);
