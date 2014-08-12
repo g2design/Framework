@@ -139,8 +139,6 @@ abstract class BaseFacebook {
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_SSL_VERIFYHOST => false,
 	);
-	protected $trustForwarded = true;
-	protected $allowSignedRequest = false;
 
 	/**
 	 * List of query parameters that get automatically dropped when rebuilding
