@@ -159,6 +159,7 @@ class G2_User {
 		foreach ($data as $key => $value) {
 			$user->$key = $value;
 		}
+
 		$this->set_temp_user($user);
 		return $user;
 	}
@@ -171,11 +172,21 @@ class G2_User {
 		return $user;
 	}
 
+	public function has_temp_user(){
+		if (isset($_SESSION['user_temp'])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	public function get_temp_user() {
+
 		if (isset($_SESSION['user_temp'])) {
 			return unserialize($_SESSION['user_temp']);
-		} else
-			return R::dispense('user');
+		} else {
+			$user = R::dispense('user');
+			return $user;
+		}
 	}
 
 	public function set_temp_user($user) {

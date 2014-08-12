@@ -13,6 +13,10 @@ class Mvc_View extends Mvc_Base {
 		$this->template = $this->get_view_package_dir() . '/views/' . $template . '.php';
 	}
 
+	public function exists(){
+		return file_exists($this->template);
+	}
+
 	public function get_view_package_dir() {
 		return $this->package_dir;
 	}
