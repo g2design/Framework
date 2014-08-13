@@ -37,9 +37,11 @@ class Mvc_Functions {
 		  should point to the folder in which the web installation reside
 
 		 */
-		$final_url = 'http://' . $_SERVER['HTTP_HOST'] . $action_2 . $base . '/';
+		(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? $http = 'https://' : $http = 'http://';
+
+		$final_url = $http . $_SERVER['HTTP_HOST'] . $action_2 . $base . '/';
 		if ($_SERVER['DOCUMENT_ROOT'] == getcwd()) {
-			$final_url = 'http://' . $_SERVER['HTTP_HOST'];
+			$final_url = $http . $_SERVER['HTTP_HOST'];
 		}
 
 //	if(getcwd() == CMS_DIR){
