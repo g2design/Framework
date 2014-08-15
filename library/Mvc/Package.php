@@ -3,6 +3,11 @@
 class Mvc_Package extends Mvc_Base {
 	var $name = null;
 	static $instance = array();
+	private $control_dir = 'controllers/';
+
+	public function set_control_dir($dir){
+		$this->control_dir = $dir.'/';
+	}
 
 	/**
 	 *
@@ -57,7 +62,7 @@ class Mvc_Package extends Mvc_Base {
 	}
 
 	protected function load_controller($controller) {
-		$controller_dir = $this->get_package_dir() . 'controllers/';
+		$controller_dir = $this->get_package_dir() . $this->control_dir;
 		$controller_uri = $controller_dir . $controller . '.php';
 		if (file_exists($controller_uri)) {
 			require_once $controller_uri;
