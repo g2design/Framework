@@ -25,7 +25,7 @@ $commands = array(
 	'git submodule sync',
 	'git submodule update',
 	'git submodule status',
-	'COMPOSER_HOME="'.getcwd().'" php composer.phar update'
+	'COMPOSER_HOME="'.getcwd().'" php composer.phar update --optimize-autoloader'
 );
 
 // Run the
