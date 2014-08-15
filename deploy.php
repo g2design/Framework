@@ -25,6 +25,7 @@ $commands = array(
 	'git submodule sync',
 	'git submodule update',
 	'git submodule status',
+	'php composer.phar install'
 );
 
 // Run the

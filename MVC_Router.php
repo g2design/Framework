@@ -45,7 +45,7 @@ class MVC_Router {
 
 	private function __construct() {
 		define('SYSTEM_DIR',dirname(__FILE__));
-		include SYSTEM_DIR.'/includes/vendor/autoload.php';
+		include SYSTEM_DIR.'/vendor/autoload.php';
 
 		$path = dirname(__FILE__) . '/library';
 		//Register MVC Autoloader
@@ -66,7 +66,7 @@ class MVC_Router {
 
 		$this->debug_logger();
 		$this->error_logger();
-		
+
 	}
 
 	private function debug_logger(){

@@ -1,0 +1,7 @@
+{
+    "require": {
+		"swiftmailer/swiftmailer" : "@stable",
+        "monolog/monolog" : "@stable",
+        "twig/twig": "@stable"
+    }
+}
