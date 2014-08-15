@@ -1,7 +1,16 @@
 <?php
 
 class MVC_Router {
-
+	/**
+	 *
+	 * @var Monolog/Logger $debug
+	 */
+	static $debug;
+	/**
+	 *
+	 * @var Monolog/Logger $error
+	 */
+	static $error;
 	private static $instance = null;
 	var $package_dirs = array();
 	private $libraries = array();
@@ -35,20 +44,51 @@ class MVC_Router {
 	}
 
 	private function __construct() {
-		//Register MVC Autoloader
 		define('SYSTEM_DIR',dirname(__FILE__));
-		spl_autoload_register(array($this, 'autoload_MVC_lib'));
-		define('BASE_URL', Mvc_Functions::get_current_site_url());
-		//Add Directory to include path;
+
 		$path = dirname(__FILE__) . '/library';
+		//Register MVC Autoloader
+		spl_autoload_register(array($this, 'autoload_MVC_lib'));
+		spl_autoload_register(array($this, 'autoload_MVC_namespace'));
+		$this->add_library($path);
+
+		define('BASE_URL', Mvc_Functions::get_current_site_url());
+
+		//Add Directory to include path;
 		set_include_path(get_include_path().PATH_SEPARATOR.$path);
 
-		// Add a error handler
-		set_error_handler([$this,'errors'], E_ERROR);
+		// Logger interface
+		$this->register_loggers();
 	}
 
-	public function errors($number,$string,$file,$line,$context){
-		echo $string;
+	public function register_loggers(){
+		$this->debug_logger();
+		$this->error_logger();
+	}
+
+	private function debug_logger(){
+		$handler = new Monolog\Handler\ChromePHPHandler(Monolog\Logger::DEBUG);
+		self::$debug = new Monolog\Logger('Debug', [$handler]);
+	}
+
+	private function error_logger(){
+		Monolog\ErrorHandler::register(self::$debug);
+
+		//Create another logger for logging to file
+		self::$error = new Monolog\Logger('Errors');
+		self::$error->pushHandler(new \Monolog\Handler\ErrorLogHandler());
+		Monolog\ErrorHandler::register(self::$error);
+	}
+
+	/**
+	 *
+	 * @return Monolog/Logger
+	 */
+	public static function debug($message){
+		if(empty(self::$debug)){
+			self::getInstance()->register_loggers();
+		}
+		return self::$debug->addDebug($message);
 	}
 
 	/**
@@ -136,8 +176,20 @@ class MVC_Router {
 			//throw new Exception("Directory $directory does not exist");
 		}
 	}
+	public function autoload_MVC_namespace($class) {
+		$parts = explode('\\', $class);
+
+		foreach ($this->libraries as $lib) {
+			$final_path = $lib . implode(DIRECTORY_SEPARATOR, $parts).'.php';
+			if (file_exists($final_path)){
+				include $final_path;
+				return;
+			}
+		}
+	}
 
 	public function autoload_MVC_lib($class) {
+
 		$path = explode('_', $class);
 		list($last) = array_reverse($path);
 		$filename = $last . '.php';
