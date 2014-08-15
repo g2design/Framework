@@ -25,7 +25,7 @@ $commands = array(
 	'git submodule sync',
 	'git submodule update',
 	'git submodule status',
-	'php composer.phar install'
+	'COMPOSER_HOME="'.getcwd().'" php composer.phar install'
 );
 
 // Run the
