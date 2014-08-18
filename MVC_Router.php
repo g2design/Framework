@@ -45,7 +45,11 @@ class MVC_Router {
 
 	private function __construct() {
 		define('SYSTEM_DIR',dirname(__FILE__));
-		include SYSTEM_DIR.'/vendor/autoload.php';
+		if(file_exists(SYSTEM_DIR.'/vendor/autoload.php')){
+			include_once SYSTEM_DIR.'/vendor/autoload.php';
+		} else if(file_exists(APP_DIR.'/vendor/autoload.php')){
+			include_once SYSTEM_DIR.'/vendor/autoload.php';
+		}
 
 		$path = dirname(__FILE__) . '/library';
 		//Register MVC Autoloader
