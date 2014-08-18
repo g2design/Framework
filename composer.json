@@ -1,7 +1,10 @@
 {
-    "require": {
-		"swiftmailer/swiftmailer" : "@stable",
-        "monolog/monolog" : "@stable",
-        "twig/twig": "@stable"
-    }
+	"name": "g2design/framework-git",
+	"require": {
+		"swiftmailer/swiftmailer": "@stable",
+		"monolog/monolog": "@stable",
+		"twig/twig": "@stable",
+		"codeguy/upload": "*"
+	}
+
 }

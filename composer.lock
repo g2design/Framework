@@ -4,8 +4,51 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "64ba3cc2c45f4913460b7d7f8327234b",
+    "hash": "c7c43d059349583b4b638882dbfb2b34",
     "packages": [
+        {
+            "name": "codeguy/upload",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeguy/Upload.git",
+                "reference": "e2bea54f98eb4fc09b5b296565eb7e54ae43642b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeguy/Upload/zipball/e2bea54f98eb4fc09b5b296565eb7e54ae43642b",
+                "reference": "e2bea54f98eb4fc09b5b296565eb7e54ae43642b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Upload": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "http://www.joshlockhart.com/"
+                }
+            ],
+            "description": "Handle file uploads with extensible validation and storage strategies",
+            "homepage": "http://github.com/codeguy/Upload",
+            "keywords": [
+                "file",
+                "upload",
+                "validation"
+            ],
+            "time": "2012-11-06 00:41:12"
+        },
         {
             "name": "monolog/monolog",
             "version": "1.10.0",
