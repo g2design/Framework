@@ -103,7 +103,7 @@ class Mvc_Functions {
 
 	static function curPageURL() {
 		$pageURL = 'http';
-		if ($_SERVER["HTTPS"] == "on") {
+		if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
 			$pageURL .= "s";
 		}
 		$pageURL .= "://";

@@ -1,21 +1,27 @@
 <?php
 
 class Mvc_Package extends Mvc_Base {
+
 	var $name = null;
 	static $instance = array();
 	private $control_dir = 'controllers/';
+	private $d_controller = 'index', $d_action = 'index';
 
-	public function set_control_dir($dir){
-		$this->control_dir = $dir.'/';
+	public function set_control_dir($dir) {
+		$this->control_dir = $dir . '/';
+	}
+
+	public function get_admin_control_dir() {
+		return 'controllers';
 	}
 
 	/**
 	 *
 	 * @return Mvc_Package
 	 */
-	public static function getInstance(){
+	public static function getInstance() {
 		$class = get_called_class();
-		if(isset(self::$instance[$class])){
+		if (isset(self::$instance[$class])) {
 			return self::$instance[$class];
 		} else {
 			self::$instance[$class] = new $class();
@@ -26,6 +32,21 @@ class Mvc_Package extends Mvc_Base {
 	function get_label() {
 		return 'test';
 	}
+	function set_default_c_a($controller, $action = 'index'){
+		$this->d_controller = $controller;
+		$this->d_action = $action;
+	}
+	function set_admin_defaults(){
+		$this->set_default_c_a('admin');
+	}
+
+	public function auto_route($request_params = []) {
+
+		$controller = (empty($request_params)) ? $this->d_controller : array_shift($request_params);
+		$action = (empty($request_params)) ? $this->d_action : array_shift($request_params);
+		MVC_Router::debug($controller);
+		return $this->route($controller, $action, $request_params);
+	}
 
 	public function route($controller = 'index', $action = 'index', $params = array()) {
 		ob_start();
@@ -34,20 +55,20 @@ class Mvc_Package extends Mvc_Base {
 			if (!$this->call_action($controller_obj, $action, $params)) {
 
 				$params = array_merge(array($action), $params);
-				$action = 'index';
+				$action = $this->d_action;
 				$this->call_action($controller_obj, $action, $params);
 			}
 		} else {
 			$params = array_merge(array($action), $params);
 			$action = $controller;
-			$controller = 'index';
+			$controller = $this->d_controller;
 			$controller_obj = $this->load_controller($controller);
 			if ($controller_obj) {
 				if (!$this->call_action($controller_obj, $action, $params)) {
 
 					$params = array_merge(array($action), $params);
-					$action = 'index';
-					if($params[count($params)-1] == 'index'){
+					$action = $this->d_action;
+					if ($params[count($params) - 1] == $this->d_action) {
 						$params = array_splice($params, 0, count($params) - 1);
 					}
 					$this->call_action($controller_obj, $action, $params);
@@ -55,19 +76,19 @@ class Mvc_Package extends Mvc_Base {
 			} else {
 				echo "Controller not set up Correctly ACTIOn";
 			}
-
 		}
 		$content = ob_get_clean();
 		return $content;
 	}
 
 	protected function load_controller($controller) {
+		MVC_Router::debug($controller);
 		$controller_dir = $this->get_package_dir() . $this->control_dir;
 		$controller_uri = $controller_dir . $controller . '.php';
 		if (file_exists($controller_uri)) {
 			require_once $controller_uri;
 			$classname = ucfirst(strtolower($controller)) . '_MVC_Controller';
-			@define('MVC_CONTROLLER',$controller);
+			@define('MVC_CONTROLLER', $controller);
 			$controller = new $classname;
 			return $controller;
 		} else {
@@ -81,16 +102,16 @@ class Mvc_Package extends Mvc_Base {
 		if (method_exists($controller_obj, $action)) {
 
 
-			@define('MVC_ACTION',$action);
-			@define('MVC_ROUTE',MVC_CONTROLLER.'/'.MVC_ACTION);
+			@define('MVC_ACTION', $action);
+			@define('MVC_ROUTE', MVC_CONTROLLER . '/' . MVC_ACTION);
 			/**
 			 * Check for a before function
 			 */
-			if(method_exists($controller_obj, '__before')){
+			if (method_exists($controller_obj, '__before')) {
 				$controller_obj->__before($params, $action);
 			}
 			$controller_obj->{$action}($params);
-			if(method_exists($controller_obj, '__after')){
+			if (method_exists($controller_obj, '__after')) {
 				$controller_obj->__after($params, $action);
 			}
 
@@ -105,12 +126,13 @@ class Mvc_Package extends Mvc_Base {
 	 *
 	 * @return boolean|\Zend_Config_Ini
 	 */
-	public function get_config($file = 'package.ini'){
-		$file = $this->get_package_dir().'config/'.$file;
-		if(file_exists($file)){
-			$config = new Zend_Config_Ini($file,  defined('APP_DEPLOY')? APP_DEPLOY : 'staging' );
+	public function get_config($file = 'package.ini') {
+		$file = $this->get_package_dir() . 'config/' . $file;
+		if (file_exists($file)) {
+			$config = new Zend_Config_Ini($file, defined('APP_DEPLOY') ? APP_DEPLOY : 'staging' );
 			return $config;
-		} else return false;
+		} else
+			return false;
 	}
 
 	private function __construct() {
@@ -147,4 +169,5 @@ class Mvc_Package extends Mvc_Base {
 			throw new Exception('No Such Controller exists');
 		}
 	}
+
 }
