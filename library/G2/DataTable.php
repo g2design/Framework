@@ -6,6 +6,13 @@ class G2_DataTable extends Mvc_Base {
 	var $data, $type, $sql, $bindings, $limit = 10;
 	private $sql_query;
 
+	/**
+	 * Gets data with Redbeanphp findAll function and paginates data accordingly
+	 *
+	 * @param type $type
+	 * @param type $sql WHERE clause
+	 * @param type $bindings PDO Bindings
+	 */
 	function add_query($type, $sql = '', $bindings = []) {
 		$this->type = $type;
 		$this->sql = $sql;
@@ -60,7 +67,7 @@ class G2_DataTable extends Mvc_Base {
 			}
 		}
 
-		return $value;
+		return nl2br($value);
 	}
 
 	/**
@@ -215,7 +222,9 @@ class G2_DataTable extends Mvc_Base {
 	function set_filter($filter) {
 		$this->filter = $filter;
 	}
-
+	function set_headers($headers){
+		$this->headers = $headers;
+	}
 	function get_headers() {
 
 		if (isset($this->headers)) {

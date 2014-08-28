@@ -33,7 +33,13 @@ class G2_DataTable_Renderer extends Mvc_Base {
 
 		return $value;
 	}
-
+	/**
+	 * Use a function as a callback for change output.
+	 * Fields passed to callback
+	 * $fieldname,$value,$row_data
+	 *
+	 * @param type $function
+	 */
 	function set_function($function){
 		$this->function = $function;
 	}

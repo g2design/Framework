@@ -6,9 +6,14 @@ class Mvc_Controller extends Mvc_Base {
 		echo 'Package Not set up correctly';
 	}
 
+	/**
+	 *
+	 * @param type $name
+	 * @return Mvc_Model
+	 */
 	public function loadModel($name)
 	{
-		require($this->get_package_dir() .'models/'. strtolower($name) .'.php');
+		require($this->get_package_dir(true) .'models/'. strtolower($name) .'.php');
 
 		$model = new $name;
 		return $model;
@@ -29,7 +34,6 @@ class Mvc_Controller extends Mvc_Base {
 	public function redirect($loc)
 	{
 		global $config;
-
 		header('Location: '. $config['base_url'] . $loc);
 	}
 
