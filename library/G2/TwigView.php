@@ -9,7 +9,7 @@ class G2_TwigView extends Mvc_View{
 	public function __construct($template) {
 //		echo $this->get_package_uri(true);exit;
 		$this->twig = Mvc_Main::getTwig($this->get_package_instance(true));
-		$this->template = $template.'.twig';
+		$this->template = $template.'.'.Mvc_Main::get_twig_extension($this->get_package_instance(true));
 	}
 
 	function exists(){

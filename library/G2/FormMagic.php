@@ -19,7 +19,7 @@ class G2_FormMagic {
 	const FILE_URI = 'file_uri';
 	const FILE_NAME = 'file_name';
 	const FILE_TYPE = 'file_type';
-	
+
 	var $un_id = null;
 	var $manual_invalidate = array();
 	var $errors = array();
@@ -131,8 +131,8 @@ class G2_FormMagic {
 					$key = str_replace("$this->un_id--", '', $key);
 					$data[$key] = $value;
 				}
-				
-				
+
+
 			}
 			/**
 			$xpath = new DOMXPath($this->content);
@@ -148,39 +148,40 @@ class G2_FormMagic {
 			$key = "$this->un_id--$key";
 			$_POST[$key] = $field;
 		}
-		
+
 		return true;
 	}
-	
+
 	public function get_uploaded_files(){
 		if($this->is_posted()){
 			$xpath = new DOMXPath($this->content);
 			$file_inputs = $xpath->query("// *[@type='file']");
-			
+
 			/* @var $input DOMElement*/
 //				$name = $input->getAttribute('name');
 			$files = array();
 			foreach($_FILES as $field => $file_u){
-				
+
 				$name_cleaned = str_replace("$this->un_id--", '', $field);
 				if($file_u['error'] == UPLOAD_ERR_OK){
 					$file[self::FILE_URI] = $file_u['tmp_name'];
 					$file[self::FILE_NAME] = $file_u['name'];
 					$file[self::FILE_TYPE] = $file_u['type'];
-					
+
 					// attach All form data to this array
 					$file = array_merge($file,$this->data());
-					
+
 					$files[$name_cleaned] = $file;
 				}
 			}
-			
+
 			return $files;
 		} else return false;
 	}
 
 	public function invalidate($name, $message){
-		$this->manual_invalidate[$name] = $message;
+		$key = "$this->un_id--$name";
+		$this->manual_invalidate[$key] = $message;
 
 	}
 	public function validate_input(DOMElement $i){
@@ -239,12 +240,10 @@ class G2_FormMagic {
 					} else return "Not an valid email address";
 					break;
 				case "date" :
-//					var_dump($value);
-//					var_dump($default_value);
+
 					$date = date_parse($value);
 					$result = checkdate($date['month'], $date['day'], $date['year']);
-//					var_dump($default_value);
-//					exit;
+
 					if($value == $default_value){
 						return "Field must be filled in and needs to be a valid date";
 					}
@@ -368,7 +367,6 @@ class G2_FormMagic {
 	public function is_posted(){
 //		echo $this->un_id;
 		$name_expected = "un_id--$this->un_id";
-//		var_dump($_POST['un_id']);
 		if(!empty($_POST) && isset($_POST[$name_expected]) && $_POST[$name_expected] == $this->un_id){
 			return !empty($_POST);
 		} else
@@ -387,9 +385,8 @@ class G2_FormMagic {
 
 					//Send node to validate_input function. This will return a message if not success
 					$result = $this->validate_input($i);
-
-					if($result !== true){ // validation error ocurred
-						$valid =false;
+					if($result !== true || isset($this->manual_invalidate[$name])){ // validation error ocurred
+						$valid = false;
 						$this->errors[] = $result;
 					}
 				}
