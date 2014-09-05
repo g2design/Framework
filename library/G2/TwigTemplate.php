@@ -36,9 +36,11 @@ class G2_TwigTemplate extends Mvc_Base{
 	 * @param type $content
 	 * @param type $variables
 	 */
-	public function render($content){
+	public function render($content, $return = false){
 		$template = $this->twig->loadTemplate($this->template);
 		$this->params['content'] = $content;
-		echo $template->render($this->params);
+		if(!$return){
+			echo $template->render($this->params);
+		} else return $template->render($this->params);
 	}
 }
