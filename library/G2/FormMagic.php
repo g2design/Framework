@@ -43,7 +43,7 @@ class G2_FormMagic {
 		$this->un_id = $id;
 
 		$doc = new DOMDocument("4.0", 'UTF-8');
-		$doc->loadHTML($this->content_string);
+		@$doc->loadHTML($this->content_string);
 		$this->content = $doc;
 
 		//Modify input names to contain form id for better identification
