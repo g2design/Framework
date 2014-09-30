@@ -17,6 +17,7 @@
 		<link href="static/admin/assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
 		<link href="static/admin/assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
 		<link href="static/admin/assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css">
+		<link href="static/admin/assets/stylesheets/summernote.min.js" rel="stylesheet" >
 
 		<!--[if lt IE 9]>
 			<script src="assets/javascripts/ie.min.js"></script>
@@ -30,8 +31,23 @@
 		<!--[if lte IE 9]>
 			<script type="text/javascript"> window.jQuery || document.write("<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'>"+"<"+"/script>"); </script>
 		<![endif]-->
+
+		<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css" />
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+
 		<script src="static/js/jquery.numeric.js"></script>
+		<script src="static/admin/javascripts/summernote.min.js"></script>
 		<script src="static/admin/javascripts/scripts.js"></script>
+
+		<style>
+			.field_error {
+				background: #ffcccc;
+			}
+		</style>
     </head>
     <body class="theme-default Animate main menu hidden-md">
 		<!-- Demo script --> <script src="static/admin/assets/demo/demo.js"></script> <!-- / Demo script -->
@@ -67,13 +83,13 @@
 									<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
 
 									<li>
-										<form class="navbar-form pull-left">
+										{#<form class="navbar-form pull-left">
 											<input type="text" class="form-control" placeholder="Search">
-										</form>
+										</form>#}
 									</li>
 
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+										{#<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
 											<img src="static/admin/assets/images/pixel-admin/main-navbar-logo.png" alt="">
 											<span>Admin</span>
 										</a>
@@ -83,7 +99,7 @@
 											<li><a href="#"><i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Settings</a></li>
 											<li class="divider"></li>
 											<li><a href="{{ admin_url }}logout"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
-										</ul>
+										</ul>#}
 									</li>
 								</ul> <!-- / .navbar-nav -->
 							</div> <!-- / .right -->
@@ -102,13 +118,13 @@
 							 Javascript: html/assets/demo/demo.js
 						-->
 						<div>
-							<div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold">{{ user.username | capitalize }}</span></div>
+							<div class="text-bg"><span class="text-slim">{#Welcome,#}</span> <span class="text-semibold">{{ user.username | capitalize }}</span></div>
 
 							<img src="static/admin/assets/images/pixel-admin/main-navbar-logo.png" alt="" class="">
 							<div class="btn-group">
-								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-envelope"></i></button></a>
+								{#<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-envelope"></i></button></a>
 								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></button></a>
-								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></button></a>
+								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></button></a>#}
 								<a href="{{ admin_url }}logout" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></button></a>
 							</div>
 							<a href="#" class="close">&times;</a>

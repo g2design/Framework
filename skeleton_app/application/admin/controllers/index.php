@@ -86,7 +86,11 @@ class Index_MVC_Controller extends G2_TwigController{
 			}
 			$controller = $package->get_admin_controller();
 			define('PACKAGE_URL',$this->get_package_uri(true)."package/$package_name/");
-			echo call_user_func_array(array($package, $controller), $args);
+			$package->set_control_dir($package->get_admin_control_dir());
+			$package->set_admin_defaults();
+
+			echo $package->auto_route($args);
+//			echo call_user_func_array(array($package, $controller), $args);
 		}
 	}
 
