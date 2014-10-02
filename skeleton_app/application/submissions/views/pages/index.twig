@@ -1,0 +1,24 @@
+<div class="col-md-10">
+	{% for sub in submissions %}
+	<a href="{{ package_url }}view/{{ sub.id }}"><div class="col-md-4">
+			<!-- Centered text -->
+			<div class="stat-panel text-center">
+				<div class="stat-row">
+					<!-- Dark gray background, small padding, extra small text, semibold text -->
+					<div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
+						<i class="fa fa-globe"></i>&nbsp;&nbsp;{{ sub.name }}
+					</div>
+				</div> <!-- /.stat-row -->
+				<div class="stat-row">
+					<!-- Bordered, without top border, without horizontal padding -->
+					<div class="stat-cell bordered no-border-t no-padding-hr">
+						<div class="pie-chart" data-percent="43" id="easy-pie-chart-1">
+							<div class="pie-chart-label">{{ sub.count }} Submissions Received</div>
+							<canvas height="90" width="90"></canvas></div>
+					</div>
+				</div> <!-- /.stat-row -->
+			</div> <!-- /.stat-panel -->
+
+		</div></a>
+	{% endfor %}
+</div>{# empty Twig template #}

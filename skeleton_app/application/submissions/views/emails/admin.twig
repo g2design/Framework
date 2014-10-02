@@ -1,0 +1,11 @@
+<h4>Online Form Submission</h4>
+<p>There have been a form submission on your website that you should be aware of. Details as follow:</p>
+<h5>Submission Type: {{ submission_type }}</h5>
+<table>
+	{% for key,field in data %}
+	<tr>
+		<td>{{ key | capitalize | replace({'_' : ' '}) }}</td>
+		<td>{{ field }}</td>
+	</tr>
+	{% endfor %}
+</table>

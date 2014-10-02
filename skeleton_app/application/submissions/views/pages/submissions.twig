@@ -1,0 +1,26 @@
+<div class="panel">
+	<table class="table">
+		<thead>
+			<tr>
+				{% for key,field in sub_head %}
+				<th>{{ key | capitalize }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for sub in submissions %}
+			<tr>
+				{% for field in sub %}
+				<td>{{ field }}</tdh>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="panel-footer"><ul class="pagination">
+			{% for i in 1..page_count %}
+			<li {% if i == current %} class='active' {% endif %} ><a href="{{ current_url }}?p={{ i }}">{{ i }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
