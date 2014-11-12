@@ -6,7 +6,7 @@
 				<th></th>
 				{% endif %}
 				{% for heading in headers %}
-				<th>{{ heading | capitalize }}</th>
+				<th>{{ instance.get_label(heading) | capitalize }}</th>
 				{% endfor %}
 			</tr>
 		</thead>
@@ -21,12 +21,12 @@
 					{{ instance.render_functions(dataset)}}
 					{#{% endfor %}#}
 				</td>
+
 				{% endif %}
-				{% for field, value in dataset %}
-				{%if field in headers %}
-				<td>{{ instance.render_value(field,value,dataset)}}</td>
-				{% endif %}
+				{% for field in headers %}
+				<td>{{ instance.render_value(field,dataset[field] ,dataset)}}</td>
 				{% endfor %}
+
 			</tr>
 			{% endfor %}
 			{% else %}

@@ -262,7 +262,7 @@ class G2_DataTable extends Mvc_Base {
 		return $objects;
 	}
 
-	private function array_to_object($array) {
+	protected function array_to_object($array) {
 		$object = new stdClass();
 		foreach ($array as $key => $value) {
 			$object->$key = $value;
@@ -271,7 +271,7 @@ class G2_DataTable extends Mvc_Base {
 		return $object;
 	}
 
-	private function object_to_array($object) {
+	protected function object_to_array($object) {
 		$array = [];
 		foreach ($object as $key => $value) {
 			$array[$key] = $value;
