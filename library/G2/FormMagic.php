@@ -117,8 +117,8 @@ class G2_FormMagic {
 
 	public function post_textarea(DOMElement $i, $name, $value) {
 
-//		$i->nodeValue = $value;
-		$this->appendHTML($i, $value);
+		$i->nodeValue = utf8_encode($value);
+//		$this->appendHTML($i, $value);
 	}
 
 	function appendHTML(DOMNode $parent, $source) {

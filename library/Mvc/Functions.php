@@ -53,6 +53,11 @@ class Mvc_Functions {
 		if (!self::endsWith($final_url, '/')) {
 			$final_url = $final_url . '/';
 		}
+		
+		//Additional Check to see if .htaccess file is enabled
+		if(!file_exists('.htaccess')){
+			$final_url .= 'index.php?';
+		}
 		return $final_url;
 	}
 
