@@ -20,7 +20,13 @@ class G2_User {
 		$new_user = clone $this->user_model;
 		$new_user->username = $username;
 		$new_user->password = $this->hash_pass($password);
-		$new_user->sharedGroup = $groups ? $groups : [$this->get_default_group()];
+		
+		if(!empty($groups)){
+			foreach($groups as &$group) {
+				$group = $this->load_group($group);
+			}
+		}
+		$new_user->sharedGroup = !empty($groups) ? $groups : [$this->get_default_group()];
 
 
 		foreach ($field_data as $field_key => $field_value) {
