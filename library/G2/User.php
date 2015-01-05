@@ -16,11 +16,11 @@ class G2_User {
 	 * @param string $username
 	 * @param string $password
 	 */
-	private function create_user($username, $password, $field_data = array()) {
+	private function create_user($username, $password, $field_data = array(), $groups = false) {
 		$new_user = clone $this->user_model;
 		$new_user->username = $username;
 		$new_user->password = $this->hash_pass($password);
-		$new_user->sharedGroup = [$this->get_default_group()];
+		$new_user->sharedGroup = $groups ? $groups : [$this->get_default_group()];
 
 
 		foreach ($field_data as $field_key => $field_value) {
@@ -87,9 +87,9 @@ class G2_User {
 		return md5(PASS_SALT . $password);
 	}
 
-	public function create_user_if_not_exist($username, $password, $field_data = array()) {
+	public function create_user_if_not_exist($username, $password, $field_data = array(), $groups = false) {
 		if (!R::find('user', "username = '$username'")) {
-			$this->create_user($username, $password, $field_data);
+			$this->create_user($username, $password, $field_data,$groups);
 		}
 	}
 
