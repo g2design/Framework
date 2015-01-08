@@ -43,8 +43,8 @@ class G2_FormMagic {
 		$this->content_string = preg_replace('|  +|', ' ', $string);
 
 		//Generate a form id for this form to uniquely identify a form
-		$id = md5($this->content_string);
-		$this->un_id = $id;
+
+
 
 		$doc = new DOMDocument("4.0", 'UTF-8');
 		@$doc->loadHTML($this->content_string);
@@ -53,6 +53,17 @@ class G2_FormMagic {
 		//Modify input names to contain form id for better identification
 		$xpath = new DOMXPath($this->content);
 		$inputs = $xpath->query('// *[@name]');
+
+		$form = $xpath->query('//form');
+		$f_item = $form->item(0);
+
+		$temp = new DOMDocument('1.0', 'UTF-8');
+		$temp_node = $temp->importNode($f_item, TRUE);
+		$temp->appendChild($temp_node);
+		$string = $temp->saveHTML();
+
+		$id = md5($string);
+		$this->un_id = $id;
 
 		foreach ($inputs as $input) {
 
@@ -117,17 +128,7 @@ class G2_FormMagic {
 
 	public function post_textarea(DOMElement $i, $name, $value) {
 
-		$i->nodeValue = utf8_encode($value);
-//		$this->appendHTML($i, $value);
-	}
-
-	function appendHTML(DOMNode $parent, $source) {
-		$tmpDoc = new DOMDocument();
-		$tmpDoc->loadHTML($source);
-		foreach ($tmpDoc->getElementsByTagName('body')->item(0)->childNodes as $node) {
-			$parent->ownerDocument->importNode($node);
-			$parent->appendChild($node);
-		}
+		$i->nodeValue = $value;
 	}
 
 	/**
