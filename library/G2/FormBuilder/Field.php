@@ -1,17 +1,19 @@
 <?php
 
-class G2_FormBuilder_Field extends Mvc_Base {
+class G2_FormBuilder_Field extends Mvc_Base implements G2_FormBuilder_Field_Interface {
 	var $name, $classes;
 	protected $value;
 	protected $args;
+	protected $atrs;
+	private $type = 'text';
 
 	/**
 	 * The twig Env to use to render the outputs
 	 * @var Twig_Environment
 	 */
-	private $twig;
+	protected $twig;
 
-	function __construct($fieldname, $classes) {
+	function __construct($fieldname, $classes, $options = []) {
 		$this->name = $fieldname;
 		$this->classes = $classes;
 
@@ -20,6 +22,8 @@ class G2_FormBuilder_Field extends Mvc_Base {
 			'classes' => &$this->classes,
 			'value' => &$this->value
 		];
+		
+		$this->args = array_merge($this->args, $options);
 	}
 
 	/**
@@ -30,7 +34,7 @@ class G2_FormBuilder_Field extends Mvc_Base {
 	 */
 	function render($return = true){
 
-		$field_string = $this->twig->render('fields/text.twig', $this->args);
+		$field_string = $this->twig->render('fields/text.twig', array_merge($this->args, ['type' => $this->type], ['this' => $this]));
 		if($return){
 			return $field_string;
 		} else {
@@ -40,6 +44,34 @@ class G2_FormBuilder_Field extends Mvc_Base {
 
 	function set_enviroment(Twig_Environment $twig){
 		$this->twig = $twig;
+	}
+	
+	function set_value($value){
+		$this->value = $value;
+		return $this;
+	}
+	
+	function set_type($type){
+		$this->type = $type;
+		return $this;
+	}
+	
+	function invalidate($message){
+		$this->error = $message;
+	}
+	
+	function set_attributes($atr = []){
+		$this->atrs = $atr;
+		return $this;
+	}
+	
+	function render_attrs(){
+		$atr_string = '';
+		foreach($this->atrs as $key => $value){
+			$atr_string .= "$key=\"$value\"";
+		}
+		
+		return $atr_string;
 	}
 
 }

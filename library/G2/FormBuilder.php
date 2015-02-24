@@ -7,6 +7,7 @@ class G2_FormBuilder extends Mvc_Base {
 
 	private $twig;
 	private $fields;
+	private $method = 'POST';
 
 	/**
 	 * Creates form builder instance
@@ -53,7 +54,6 @@ class G2_FormBuilder extends Mvc_Base {
 	 * Renders this form
 	 */
 	function render($return = false) {
-		echo "ASDAS";
 		//Render all fields inside a form tag
 		$form = $this->get_form_object();
 		//return output of the form
@@ -69,13 +69,19 @@ class G2_FormBuilder extends Mvc_Base {
 			/* @var $field G2_FormBuilder_Field */
 			$inputs .= $field->render();
 		}
-		return "<form action=\"\">$inputs</form>";
+		
+		$form = $this->twig->render('wrappers/form.twig',['form_content' => $inputs]);
+		return $form;
 	}
 
 	private function get_form_object() {
 		$string = $this->get_string();
-
-		$form = new G2_FormMagic($string);
+		$concat = '';
+		foreach ($this->fields as $field) {
+			$concat .= "|$field->name";
+		}
+		$unique_name = md5($concat);
+		$form = new G2_FormMagic($string , $unique_name);
 
 		return $form;
 	}
@@ -91,6 +97,13 @@ class G2_FormBuilder extends Mvc_Base {
 
 		return $form->validate();
 	}
+	
+	function data(){
+		$data = $this->get_form_object()->data();
+		
+		
+		return $data;
+	}
 
 	/**
 	 * A field factory. Returns field of type
@@ -99,9 +112,28 @@ class G2_FormBuilder extends Mvc_Base {
 	 * @param type $type
 	 * @return \G2_FormBuilder_Field
 	 */
-	static function field_factory($fieldname, Twig_Environment $env, $classes = '', $type="" ){
-		$field = new G2_FormBuilder_Field($fieldname, $classes);
+	static function field_factory($fieldname, Twig_Environment $env, $classes = '', $type="text", $options = [] ){
+		
+		switch ($type) {
+			case 'textarea' :
+				$field = new G2_FormBuilder_Field_Textarea($fieldname, $classes, $options);
+				break;
+			case 'select' :
+				$field = new G2_FormBuilder_Field_Select($fieldname, $classes, $options);
+				break;
+			case 'radio' :
+				$field = new G2_FormBuilder_Field_Radio($fieldname, $classes, $options);
+				break;
+			case 'checkbox' :
+			case 'password' :
+			case 'text' :
+			default :
+				$field = new G2_FormBuilder_Field($fieldname, $classes, $options);
+				$field->set_type($type);
+		}
 		$field->set_enviroment($env);
+		
+		
 		return $field;
 	}
 
@@ -113,8 +145,8 @@ class G2_FormBuilder extends Mvc_Base {
 	 * @param type $type
 	 * @return type
 	 */
-	function create_field($fieldname , $classes = "", $type = ""){
-		$field = self::field_factory($fieldname, $this->get_enviroment(), $classes, $type);
+	function create_field($fieldname , $classes = "", $type = "text",$options = []){
+		$field = self::field_factory($fieldname, $this->get_enviroment(), $classes, $type, $options);
 		return $field;
 	}
 

@@ -302,6 +302,10 @@ class MVC_Router {
 	}
 
 }
-function debug($message){
-	MVC_Router::debug($message);
+if(!defined('debug')){
+	
+	function debug($message) {
+		MVC_Router::debug($message);
+	}
+
 }

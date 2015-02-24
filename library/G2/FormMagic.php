@@ -37,7 +37,7 @@ class G2_FormMagic {
 	 *
 	 * html string containing the form
 	 */
-	public function __construct($string) {
+	public function __construct($string, $un_id = false) {
 
 		$string = str_replace(array("\n", "\r", '&nbsp;', "\t"), '', $string);
 		$this->content_string = preg_replace('|  +|', ' ', $string);
@@ -63,7 +63,11 @@ class G2_FormMagic {
 		$string = $temp->saveHTML();
 
 		$id = md5($string);
-		$this->un_id = $id;
+		if (!$un_id) {
+			$this->un_id = $id;
+		} else {
+			$this->un_id = $un_id;
+		}
 
 		foreach ($inputs as $input) {
 
@@ -80,35 +84,107 @@ class G2_FormMagic {
 	 * Gets all post names and inserts it into the relevant value attribute
 	 */
 	public function post_to_value_fields() {
-		$xpath = new DOMXPath($this->content);
 
-		$el = $this->content->createElement("a");
+
 		if (!empty($_POST)) {
-			foreach ($_POST as $name => $value) {
-				$input = $xpath->query('//*[starts-with(@name,"' . $name . '")]');
-				foreach ($input as $i) {
-					/* @var $e DOMElement */
+
+			$this->set_fields($_POST);
+//			foreach ($_POST as $name => $value) {
+//				if (is_array($value)) {
+//					
+//				} else {
+//					$input = $xpath->query('//*[starts-with(@name,"' . $name . '")]');
+//				}
+//				foreach ($input as $i) {
+//					/* @var $e DOMElement */
+////					var_dump($value);
+//					$tag = $i->nodeName;
+//					switch ($tag) {
+//						case "input" :
+//							$i->setAttribute('value', $value);
+//							break;
+//						case "select" :
+//							$this->post_select($i, $name, $value);
+//							break;
+//						case "textarea" :
+//							$this->post_textarea($i, $name, $value);
+//							break;
+//						default :
+//							/**
+//							 * Not handled jet fields
+//							 * checkbox, radiobutton,submit
+//							 */
+//							break;
+//					}
+//				}
+//			}
+		}
+	}
+
+	function set_fields($data, $prefix = []) {
+		$xpath = new DOMXPath($this->content);
+		foreach ($data as $name => $value) {
+			if (is_array($prefix) && !empty($prefix)) {
+				$copy_prefix = $prefix;
+				$name_new = array_shift($copy_prefix);
+				$name_new .= '[' . implode('][', array_merge($copy_prefix, [$name])) . ']';
+				$name = $name_new;
+//				echo $name;
+//				exit;
+			}
+			$input = $xpath->query('//*[starts-with(@name,"' . $name . '")]');
+			foreach ($input as $one) {
+				$i = $one;
+				break;
+			}
+			$tag = $i->nodeName;
+
+			if (is_array($value) && $tag != 'select') {
+
+				$this->set_fields($value, array_merge($prefix, [$name]));
+				continue;
+			} else {
+				
+			}
+
+			foreach ($input as $i) {
+				/* @var $i DOMElement */
 //					var_dump($value);
-					$tag = $i->nodeName;
-					switch ($tag) {
-						case "input" :
-							$i->setAttribute('value', $value);
-							break;
-						case "select" :
-							$this->post_select($i, $name, $value);
-							break;
-						case "textarea" :
-							$this->post_textarea($i, $name, $value);
-							break;
-						default :
-							/**
-							 * Not handled jet fields
-							 * checkbox, radiobutton,submit
-							 */
-							break;
-					}
+				$tag = $i->nodeName;
+
+				switch ($tag) {
+					case "input" :
+						$type = $i->getAttribute('type');
+						switch ($type) {
+							case 'checkbox':
+								if($value == 'on') {
+									$i->setAttribute('checked', 'checked');
+								}
+								break;
+							case 'radio':
+								if($value == $i->getAttribute('value')) {
+									$i->setAttribute('checked', 'checked');
+								}
+								break;
+							default :
+								$i->setAttribute('value', $value);
+						}
+						break;
+					case "select" :
+						$this->post_select($i, $name, $value);
+						break;
+					case "textarea" :
+						$this->post_textarea($i, $name, $value);
+						break;
+					default :
+						/**
+						 * Not handled jet fields
+						 * checkbox, radiobutton,submit
+						 */
+						break;
 				}
 			}
+			
 		}
 	}
 

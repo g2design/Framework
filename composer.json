@@ -5,7 +5,8 @@
 		"swiftmailer/swiftmailer": "@stable",
 		"monolog/monolog": "@stable",
 		"twig/twig": "@stable",
-		"codeguy/upload": "*"
+		"codeguy/upload": "*",
+		"wixel/gump": "dev-master"
 	},
 	"package": {
 		"name": "g2design/framework-git",
