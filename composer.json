@@ -6,7 +6,7 @@
 		"monolog/monolog": "@stable",
 		"twig/twig": "@stable",
 		"codeguy/upload": "*",
-		"wixel/gump": "dev-master"
+		"wixel/gump": "@stable"
 	},
 	"package": {
 		"name": "g2design/framework-git",

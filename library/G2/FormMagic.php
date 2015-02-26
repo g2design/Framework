@@ -137,7 +137,7 @@ class G2_FormMagic {
 				$i = $one;
 				break;
 			}
-			$tag = $i->nodeName;
+			$tag = isset($i->nodeName) ? $i->nodeName : null;
 
 			if (is_array($value) && $tag != 'select') {
 
