@@ -91,7 +91,8 @@ class Mvc_Base {
 	 */
 	public function loadModel($name)
 	{
-		require($this->get_package_dir(true) .'models/'. strtolower($name) .'.php');
+		
+		require_once($this->get_package_dir(true) .'models/'. strtolower($name) .'.php');
 
 		$model = new $name;
 		return $model;
