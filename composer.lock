@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5bc9adc26b4cc16f701b9f7101bf6e23",
+    "hash": "ae229b1bbf92558ef079680e7ab3e800",
     "packages": [
         {
             "name": "codeguy/upload",
@@ -274,16 +274,16 @@
         },
         {
             "name": "wixel/gump",
-            "version": "dev-master",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wixel/GUMP.git",
-                "reference": "5687aac3ff1a17d8baaea6b65e12c080e62e8878"
+                "reference": "0202bbf7a5211ea00169abcf22e8c238c91e4c74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/5687aac3ff1a17d8baaea6b65e12c080e62e8878",
-                "reference": "5687aac3ff1a17d8baaea6b65e12c080e62e8878",
+                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/0202bbf7a5211ea00169abcf22e8c238c91e4c74",
+                "reference": "0202bbf7a5211ea00169abcf22e8c238c91e4c74",
                 "shasum": ""
             },
             "type": "library",
@@ -297,6 +297,11 @@
                 "MIT"
             ],
             "authors": [
+                {
+                    "name": "Rob Crowe",
+                    "email": "hello@vivalacrowe.com",
+                    "homepage": "http://vivalacrowe.com"
+                },
                 {
                     "name": "Colleen Emryss",
                     "homepage": "http://skitter.tv"
@@ -316,19 +321,11 @@
                 {
                     "name": "Inge Brattaas",
                     "homepage": "http://res.no/"
-                },
-                {
-                    "name": "Sean Nieuwoudt",
-                    "homepage": "http://wixelhq.com"
-                },
-                {
-                    "name": "Rob Crowe",
-                    "homepage": "http://vivalacrowe.com"
                 }
             ],
             "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
             "homepage": "http://wixelhq.com/",
-            "time": "2014-11-24 11:34:42"
+            "time": "2014-06-10 08:22:27"
         }
     ],
     "packages-dev": [],
@@ -338,7 +335,7 @@
         "swiftmailer/swiftmailer": 0,
         "monolog/monolog": 0,
         "twig/twig": 0,
-        "wixel/gump": 20
+        "wixel/gump": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

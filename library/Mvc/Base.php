@@ -83,5 +83,18 @@ class Mvc_Base {
 	public function loadPlugin($name) {
 		require($this->get_package_dir() . 'plugins/' . strtolower($name) . '.php');
 	}
+	
+	/**
+	 *
+	 * @param type $name
+	 * @return Mvc_Model
+	 */
+	public function loadModel($name)
+	{
+		require($this->get_package_dir(true) .'models/'. strtolower($name) .'.php');
+
+		$model = new $name;
+		return $model;
+	}
 
 }
