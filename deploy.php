@@ -15,16 +15,16 @@ $url = "$auth_key@github.com/g2design/Framework.git";
 
 //Commands to be run on the server
 $commands = array(
-	'echo $PWD',
-	'whoami',
-	'git init',
-	"git remote add origin $url",
-	'git fetch origin',
-	'git reset --hard origin/Test',
-	'git status',
-	'git submodule sync',
-	'git submodule update',
-	'git submodule status',
+//	'echo $PWD',
+//	'whoami',
+//	'git init',
+//	"git remote add origin $url",
+//	'git fetch origin',
+//	'git reset --hard origin/Test',
+//	'git status',
+//	'git submodule sync',
+//	'git submodule update',
+//	'git submodule status',
 	'COMPOSER_HOME="'.getcwd().'" php composer.phar update --optimize-autoloader'
 );
 

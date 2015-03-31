@@ -1,4 +1,4 @@
-<select name="{{ field.name }}" class="form-control {{ field.classes }}">
+<select name="{{ field.name }}" class="form-control {{ field.classes }}" {% if field.disabled %}disabled="disabled"{% endif %}>
 	{% for option in options %}
 	<option value="{{ option.value }}">{{option.label}}</option>
 	{% endfor %}
