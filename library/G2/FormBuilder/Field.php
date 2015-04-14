@@ -1,7 +1,7 @@
 <?php
 
 class G2_FormBuilder_Field extends Mvc_Base implements G2_FormBuilder_Field_Interface {
-	var $name, $classes;
+	var $name, $classes, $label;
 	protected $value;
 	protected $args;
 	protected $atrs;
@@ -12,15 +12,18 @@ class G2_FormBuilder_Field extends Mvc_Base implements G2_FormBuilder_Field_Inte
 	 * @var Twig_Environment
 	 */
 	protected $twig;
+	
 
 	function __construct($fieldname, $classes, $options = []) {
 		$this->name = $fieldname;
 		$this->classes = $classes;
+		$this->label = $fieldname;
 
 		$this->args = [
 			'name' => &$this->name,
 			'classes' => &$this->classes,
-			'value' => &$this->value
+			'value' => &$this->value,
+			'label' => &$this->label,
 		];
 		
 		$this->args = array_merge($this->args, $options);
@@ -62,6 +65,11 @@ class G2_FormBuilder_Field extends Mvc_Base implements G2_FormBuilder_Field_Inte
 	
 	function set_attributes($atr = []){
 		$this->atrs = $atr;
+		return $this;
+	}
+	
+	function set_label($label){
+		$this->label = $label;
 		return $this;
 	}
 	
