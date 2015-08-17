@@ -298,7 +298,7 @@ if (!class_exists('MVC_Router')) {
 			$slug = current($segments);
 			// Change the way routing works. Routing needs to use a routing object instead that will be registered by the package itself
 			$route = $this->get_route_object($slug);
-			if (!$this->has_route($slug)) {
+			if ($this->has_route($slug)) {
 				array_shift($segments);
 			}
 
