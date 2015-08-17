@@ -169,5 +169,10 @@ class Mvc_Package extends Mvc_Base {
 			throw new Exception('No Such Controller exists');
 		}
 	}
+	
+	function setup_router(){
+		$slug = strtolower(str_replace('Package_', '', get_called_class()));
+		MVC_Router::add_route($slug, new Mvc_Package_Router($this));
+	}
 
 }
