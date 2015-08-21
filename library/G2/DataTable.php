@@ -67,7 +67,7 @@ class G2_DataTable extends Mvc_Base {
 			}
 		}
 
-		return nl2br($value);
+		return  empty($this->renderers) ? nl2br($value) : $value;
 	}
 
 	/**
