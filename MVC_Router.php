@@ -296,6 +296,7 @@ if (!class_exists('MVC_Router')) {
 			// Split the url into segments add route controller
 			$segments = explode('/', $url);
 			$slug = current($segments);
+			
 			// Change the way routing works. Routing needs to use a routing object instead that will be registered by the package itself
 			$route = $this->get_route_object($slug);
 			if ($this->has_route($slug)) {
@@ -304,12 +305,6 @@ if (!class_exists('MVC_Router')) {
 
 			echo $route->route($segments);
 
-//			if ($package = $this->get_package_for(current($segments))) {
-//				array_shift($segments);
-//			} else {
-//				$package = $this->default_package;
-//			}
-//			echo $this->route($package, $segments);
 		}
 
 		function has_route($slug) {

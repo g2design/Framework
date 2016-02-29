@@ -8,6 +8,7 @@ class G2_FormBuilder extends Mvc_Base {
 	private $twig;
 	private $fields;
 	private $method = 'POST';
+	private $form_obj;
 
 	/**
 	 * Creates form builder instance
@@ -74,16 +75,16 @@ class G2_FormBuilder extends Mvc_Base {
 		return $form;
 	}
 
-	private function get_form_object() {
+	public function &get_form_object() {
 		$string = $this->get_string();
 		$concat = '';
 		foreach ($this->fields as $field) {
 			$concat .= "|$field->name";
 		}
 		$unique_name = md5($concat);
-		$form = new G2_FormMagic($string , $unique_name);
+		$this->form_obj = new G2_FormMagic($string , $unique_name);
 
-		return $form;
+		return $this->form_obj;
 	}
 
 	function is_posted() {
