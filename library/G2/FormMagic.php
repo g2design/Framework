@@ -63,7 +63,7 @@ class G2_FormMagic {
 		$string = $temp->saveHTML();
 
 		$id = md5($string);
-		if (!$un_id) {
+		if ( $un_id === false ) {
 			$this->un_id = $id;
 		} else {
 			$this->un_id = $un_id;
