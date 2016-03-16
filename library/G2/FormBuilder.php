@@ -66,7 +66,7 @@ class G2_FormBuilder extends Mvc_Base {
 		echo $form->parse();
 	}
 
-	private function get_string() {
+	public function get_string() {
 		$inputs = '';
 		foreach($this->fields as $field){
 			/* @var $field G2_FormBuilder_Field */
@@ -85,8 +85,10 @@ class G2_FormBuilder extends Mvc_Base {
 		}
 		$unique_name = md5($concat);
 //		$this->form_obj = new G2_FormMagic($string , $unique_name);
-		$this->form_obj = new Form($string , $unique_name);
-
+		if(!$this->form_obj) {
+			$this->form_obj = new Form($string , $unique_name);
+		}
+		
 		return $this->form_obj;
 	}
 
