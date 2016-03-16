@@ -1,5 +1,7 @@
 <?php
 
+use Form\Form;
+
 /**
  * Class for creating forms in OOP Style
  */
@@ -82,7 +84,8 @@ class G2_FormBuilder extends Mvc_Base {
 			$concat .= "|$field->name";
 		}
 		$unique_name = md5($concat);
-		$this->form_obj = new G2_FormMagic($string , $unique_name);
+//		$this->form_obj = new G2_FormMagic($string , $unique_name);
+		$this->form_obj = new Form($string , $unique_name);
 
 		return $this->form_obj;
 	}
