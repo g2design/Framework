@@ -76,7 +76,12 @@ class G2_FormBuilder extends Mvc_Base {
 		$form = $this->twig->render('wrappers/form.twig',['form_content' => $inputs]);
 		return $form;
 	}
-
+	
+	/**
+	 * Return the html binder
+	 * 
+	 * @return Form\Form
+	 */
 	public function &get_form_object() {
 		$string = $this->get_string();
 		$concat = '';
