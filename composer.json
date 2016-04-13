@@ -1,5 +1,5 @@
 {
-	"type": "package",
+	
 	"name": "g2design/framework-git",
 	"require": {
 		"swiftmailer/swiftmailer": "@stable",
@@ -9,16 +9,7 @@
 		"wixel/gump": "@stable",
 		"stwessl/form": "dev-master"
 	},
-	"package": {
-		"name": "g2design/framework-git",
-		"version": "dev-master",
-		"source": {
-			"url": "https://github.com/g2design/Framework.git",
-			"type": "git",
-			"reference": "master"
-		}
-
-	},
+	
 	"autoload": {
        "files": [
 			"MVC_Router.php"
