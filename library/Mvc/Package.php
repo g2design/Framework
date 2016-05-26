@@ -129,7 +129,7 @@ class Mvc_Package extends Mvc_Base {
 	public function get_config($file = 'package.ini') {
 		$file = $this->get_package_dir() . 'config/' . $file;
 		if (file_exists($file)) {
-			$config = new Zend_Config_Ini($file, defined('APP_DEPLOY') ? APP_DEPLOY : 'staging' );
+			$config = new Zend_Config_Ini($file, defined('APP_DEPLOY') ? APP_DEPLOY : 'staging', true );
 			return $config;
 		} else
 			return false;
