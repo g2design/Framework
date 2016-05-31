@@ -14,7 +14,7 @@
        "files": [
 			"MVC_Router.php"
 		]
-    }
+    },
 	
 	"extra": {
         "branch-alias": {
