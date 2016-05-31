@@ -7,13 +7,19 @@
 		"twig/twig": "@stable",
 		"codeguy/upload": "*",
 		"wixel/gump": "@stable",
-		"stwessl/form": "dev-master"
+		"stwessl/form": "@stable"
 	},
 	
 	"autoload": {
        "files": [
 			"MVC_Router.php"
 		]
+    }
+	
+	"extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 
 }
