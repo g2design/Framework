@@ -10,7 +10,6 @@ class Mvc_Package_Router extends Mvc_Base implements Mvc_Router_Interface {
 
 	public function route($request_params) {
 		$pkg = $this->package;
-
 		if ($pkg) {
 //			var_dump($pkg);exit;
 			//Convert to use a router object instead of a Hardcoded object

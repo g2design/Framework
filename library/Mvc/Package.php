@@ -87,9 +87,19 @@ class Mvc_Package extends Mvc_Base {
 		$controller_uri = $controller_dir . $controller . '.php';
 		if (file_exists($controller_uri)) {
 			require_once $controller_uri;
-			$classname = ucfirst(strtolower($controller)) . '_MVC_Controller';
-			@define('MVC_CONTROLLER', $controller);
-			$controller = new $classname;
+			
+			
+			$namespace_class = str_replace('Package_', '', get_class($this)).'\\'.  ucfirst($controller).'Controller';
+			if(class_exists($namespace_class)) {
+				@define('MVC_CONTROLLER', $controller);
+				$controller = new $namespace_class;
+			} else {
+				$classname = ucfirst(strtolower($controller)) . '_MVC_Controller';
+				@define('MVC_CONTROLLER', $controller);
+				$controller = new $classname;
+				
+			}
+			
 			return $controller;
 		} else {
 			return false;
