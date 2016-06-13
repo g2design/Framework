@@ -21,7 +21,7 @@ class Mvc_Controller extends Mvc_Base {
 	public function redirect($loc)
 	{
 		global $config;
-		header('Location: '. $config['base_url'] . $loc);
+		header('Location: '. BASE_URL . $loc);
 	}
 
 	public function __before(){
