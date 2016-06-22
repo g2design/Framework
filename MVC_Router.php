@@ -29,6 +29,7 @@ if (!class_exists('MVC_Router')) {
 		private $package_objects = array();
 		private $default_package = array();
 		private $db;
+		private $db_loaded = false;
 		public $routes;
 
 		function register_package_directory($dir) {
@@ -71,6 +72,7 @@ if (!class_exists('MVC_Router')) {
 			//Register MVC Autoloader
 			spl_autoload_register(array($this, 'autoload_MVC_lib'));
 			spl_autoload_register(array($this, 'autoload_MVC_namespace'));
+			$this->setup_db(false);
 			$this->add_library($path);
 
 			define('BASE_URL', Mvc_Functions::get_current_site_url());
@@ -80,6 +82,8 @@ if (!class_exists('MVC_Router')) {
 
 			// Logger interface
 			$this->register_loggers();
+
+			//Temp db setup
 		}
 
 		public function register_loggers() {
@@ -273,10 +277,19 @@ if (!class_exists('MVC_Router')) {
 		}
 
 		public function dispatch() {
+
 			// Get request url and script url
 			$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
 			$script_url = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
-
+			
+			
+			if(isset($_GET['MVc_GeTFILE'])&& !empty($_GET['MVc_GeTFILE'])) {
+				$fileserver = Mvc_Fileserver::get_instance();
+				$fileserver->block_extension('php');
+				if($fileserver->exists($_GET['MVc_GeTFILE'])){
+					$fileserver->serve($_GET['MVc_GeTFILE']);
+				}
+			}
 			// Get our url path and trim the / of the left and the right
 			if ($request_url != $script_url) {
 				$url = trim(preg_replace('/' . str_replace('/', '\/', str_replace('index.php', '', $script_url)) . '/', '', $request_url, 1), '/');
@@ -312,6 +325,10 @@ if (!class_exists('MVC_Router')) {
 			echo $route->route($segments);
 		}
 
+		public function serve($file) {
+			
+		}
+
 		function has_route($slug) {
 			if (isset($this->routes[$slug])) {
 				return true;
@@ -338,10 +355,22 @@ if (!class_exists('MVC_Router')) {
 		}
 
 		public function setup_db($config) {
-			$config = new Zend_Config_Ini($config, APP_DEPLOY);
-//		echo $config->database->dsn;exit;
-			Mvc_Db::setup_db($config->database->dsn, $config->database->username, $config->database->password);
-			Mvc_db::setup();
+
+			if ($config != false) {
+				$config = new Zend_Config_Ini($config, APP_DEPLOY);
+				Mvc_Db::setup_db($config->database->dsn, $config->database->username, $config->database->password);
+				Mvc_Db::setup();
+			} else {
+
+				$temp_db = 'cache/db-temp.sqlite';
+				if (!is_dir(dirname($temp_db))) {
+					mkdir(dirname($temp_db), 0777);
+				}
+
+				Mvc_Db::setup_db('sqlite:' . ROOT_DIR . $temp_db, 'temp', 'temp');
+				Mvc_Db::setup();
+			}
+			$this->db_loaded = true;
 		}
 
 	}

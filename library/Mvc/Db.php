@@ -16,7 +16,7 @@ class Mvc_Db extends R {
 	public static function setup() {
 		if (self::$connected == false) {
 			parent::setup(self::$dsn, self::$username, self::$password, self::$frozen);
-			self::$connected = false;
+			self::$connected = true;
 		}
 	}
 
