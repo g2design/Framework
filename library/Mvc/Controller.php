@@ -14,14 +14,14 @@ class Mvc_Controller extends Mvc_Base {
 
 	}
 
-
-
-
-
 	public function redirect($loc)
 	{
 		global $config;
-		header('Location: '. BASE_URL . $loc);
+		
+		if(strpos($loc, BASE_URL) === false) {
+			$loc = BASE_URL . $loc;
+		}
+		header('Location: '. $loc);
 	}
 
 	public function __before(){

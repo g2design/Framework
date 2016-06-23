@@ -27,6 +27,7 @@ if (!class_exists('MVC_Router')) {
 		var $package_dirs = array();
 		private $libraries = array();
 		private $package_objects = array();
+		private $loaded_packages = [];
 		private $default_package = array();
 		private $db;
 		private $db_loaded = false;
@@ -35,7 +36,7 @@ if (!class_exists('MVC_Router')) {
 		function register_package_directory($dir) {
 			//Clean path
 			$dir = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
-			$this->package_dirs = array_merge(array($dir));
+			$this->package_dirs = array_merge($this->package_dirs, array($dir));
 			$this->init_packages();
 		}
 
@@ -133,6 +134,10 @@ if (!class_exists('MVC_Router')) {
 		function init_packages() {
 			$packages = array();
 			foreach ($this->package_dirs as $dir) {
+				if(in_array($dir, $this->loaded_packages)) {
+					continue;
+				}
+				$this->loaded_packages[] = $dir; 
 				$packages = array_merge($packages, $this->get_dir_packages($dir));
 			}
 
