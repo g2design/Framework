@@ -35,7 +35,7 @@ if (!class_exists('MVC_Router')) {
 		function register_package_directory($dir) {
 			//Clean path
 			$dir = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
-			$this->package_dirs = array($dir);
+			$this->package_dirs = array_merge(array($dir));
 			$this->init_packages();
 		}
 
