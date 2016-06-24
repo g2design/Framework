@@ -17,6 +17,11 @@ class G2_FormBuilder extends Mvc_Base {
 	 * @param array $look_dirs
 	 */
 	function __construct($look_dirs = []) {
+		
+		if(is_string($look_dirs)) {
+			$look_dirs = [$look_dirs];
+		}
+		
 		$twig_cache = ROOT_DIR . 'cache/tables/';
 		$twig_folder = __DIR__ . '/FormBuilder/templates';
 
