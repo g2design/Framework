@@ -134,10 +134,10 @@ if (!class_exists('MVC_Router')) {
 		function init_packages() {
 			$packages = array();
 			foreach ($this->package_dirs as $dir) {
-				if(in_array($dir, $this->loaded_packages)) {
+				if (in_array($dir, $this->loaded_packages)) {
 					continue;
 				}
-				$this->loaded_packages[] = $dir; 
+				$this->loaded_packages[] = $dir;
 				$packages = array_merge($packages, $this->get_dir_packages($dir));
 			}
 
@@ -282,16 +282,24 @@ if (!class_exists('MVC_Router')) {
 		}
 
 		public function dispatch() {
+			if (!isset($_SERVER['SERVER_ADDR'])) {
+				global $argv;
+				$request_url = $argv[1];
+//				$script_url = $request_url;
+				
+				print(var_export($request_url, true));
+//				print(var_export($request_url, true));
+			} else {
+				// Get request url and script url
+				$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
+				$script_url = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
+			}
 
-			// Get request url and script url
-			$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
-			$script_url = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
-			
-			
-			if(isset($_GET['MVc_GeTFILE'])&& !empty($_GET['MVc_GeTFILE'])) {
+
+			if (isset($_GET['MVc_GeTFILE']) && !empty($_GET['MVc_GeTFILE'])) {
 				$fileserver = Mvc_Fileserver::get_instance();
 				$fileserver->block_extension('php');
-				if($fileserver->exists($_GET['MVc_GeTFILE'])){
+				if ($fileserver->exists($_GET['MVc_GeTFILE'])) {
 					$fileserver->serve($_GET['MVc_GeTFILE']);
 				}
 			}
@@ -326,13 +334,11 @@ if (!class_exists('MVC_Router')) {
 			if ($this->has_route($slug)) {
 				array_shift($segments);
 			}
-
+			
 			echo $route->route($segments);
 		}
 
-		public function serve($file) {
-			
-		}
+		
 
 		function has_route($slug) {
 			if (isset($this->routes[$slug])) {
