@@ -303,6 +303,7 @@ if (!class_exists('MVC_Router')) {
 					$fileserver->serve($_GET['MVc_GeTFILE']);
 				}
 			}
+			unset($_GET['MVc_GeTFILE']);
 			// Get our url path and trim the / of the left and the right
 			if ($request_url != $script_url) {
 				$url = trim(preg_replace('/' . str_replace('/', '\/', str_replace('index.php', '', $script_url)) . '/', '', $request_url, 1), '/');
