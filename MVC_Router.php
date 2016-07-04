@@ -370,8 +370,9 @@ if (!class_exists('MVC_Router')) {
 
 			if ($config != false) {
 				$config = new Zend_Config_Ini($config, APP_DEPLOY);
-				Mvc_Db::setup_db($config->database->dsn, $config->database->username, $config->database->password);
-				Mvc_Db::setup();
+				R::addDatabase('DB1',$config->database->dsn, $config->database->username, $config->database->password);
+				R::selectDatabase('DB1');
+				
 			} else {
 
 				$temp_db = 'cache/db-temp.sqlite';
