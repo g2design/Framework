@@ -1,2 +1,2 @@
 <label for="">{{ label | default(name) }}</label>
-<textarea name="{{ name }}" class="{{ classes }}">{{ value }}</textarea>
+<textarea name="{{ name }}" class="{{ classes }}" {{ this.render_attrs() }}>{{ value }}</textarea>

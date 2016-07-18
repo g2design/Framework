@@ -1,5 +1,5 @@
 <label for="">{{ label | default(name) }}</label>
-<select name="{{ name }}" id="" class="{{ classes }}">
+<select name="{{ name }}" id="" class="{{ classes }}" {{ this.render_attrs() }}>
 	{% for option in options %}
 		<option value="{{ option.value}}" {% if option.value == value %} selected="selected" {% endif %} >{{ option.label }}</option>
 	{% endfor %}
