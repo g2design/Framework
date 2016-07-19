@@ -11,6 +11,8 @@ class G2_FormBuilder extends Mvc_Base {
 	private $fields;
 	private $method = 'POST';
 	private $form_obj;
+	public $submit_text = 'Submit';
+	
 
 	/**
 	 * Creates form builder instance
@@ -78,7 +80,7 @@ class G2_FormBuilder extends Mvc_Base {
 			$inputs .= $field->render();
 		}
 		
-		$form = $this->twig->render('wrappers/form.twig',['form_content' => $inputs]);
+		$form = $this->twig->render('wrappers/form.twig',['form_content' => $inputs , 'this' => $this]);
 		return $form;
 	}
 	
