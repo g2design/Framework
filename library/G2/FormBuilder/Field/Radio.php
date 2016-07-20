@@ -4,7 +4,7 @@ class G2_FormBuilder_Field_Radio extends G2_FormBuilder_Field {
 	private $options;
 	
 	function render($return = true) {
-		$field_string = $this->twig->render('fields/radio.twig', array_merge($this->args,['options' => $this->options]));
+		$field_string = $this->twig->render('fields/radio.twig', array_merge($this->args,['options' => $this->options, 'this' => $this]));
 		if($return){
 			return $field_string;
 		} else {
