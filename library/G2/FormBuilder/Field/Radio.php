@@ -12,7 +12,8 @@ class G2_FormBuilder_Field_Radio extends G2_FormBuilder_Field {
 		}
 	}
 	
-	function add_option($label, $value) {
+	function add_option($label, $value = false) {
+		if(!$value) $value = $label;
 		$this->options[] = ['label' => $label, 'value'=> $value];
 		return $this;
 	}
