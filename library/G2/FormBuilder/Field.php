@@ -73,6 +73,11 @@ class G2_FormBuilder_Field extends Mvc_Base implements G2_FormBuilder_Field_Inte
 		return $this;
 	}
 	
+	function set_required($required = true) {
+		$this->required = $required;
+		return $this;
+	}
+	
 	function render_attrs(){
 		$atr_string = '';
 		foreach($this->atrs as $key => $value){
