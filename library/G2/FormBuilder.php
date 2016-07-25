@@ -143,6 +143,8 @@ class G2_FormBuilder extends Mvc_Base {
 				$field = new G2_FormBuilder_Field_Radio($fieldname, $classes, $options);
 				break;
 			case 'checkbox' :
+				$field = new G2_FormBuilder_Field_Checkbox($fieldname, $classes, $options);
+				break;
 			case 'password' :
 			case 'text' :
 			default :
