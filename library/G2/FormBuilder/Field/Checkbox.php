@@ -12,4 +12,5 @@ class G2_FormBuilder_Field_Checkbox extends G2_FormBuilder_Field {
 		}
 	}
 	
+	
 }
