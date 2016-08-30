@@ -13,6 +13,10 @@ class G2_FormBuilder_Field_Select extends G2_FormBuilder_Field {
 	}
 	
 	function add_option($label, $value) {
+		if($value == false) {
+			$value = $label;
+		}
+		
 		$this->options[] = ['label' => $label, 'value'=> $value];
 		return $this;
 	}
