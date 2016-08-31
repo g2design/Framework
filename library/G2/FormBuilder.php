@@ -116,8 +116,8 @@ class G2_FormBuilder extends Mvc_Base {
 		return $form->validate();
 	}
 	
-	function data(){
-		$data = $this->get_form_object()->data();
+	function data($data = false){
+		$data = $this->get_form_object()->data($data);
 		
 		
 		return $data;
@@ -144,6 +144,9 @@ class G2_FormBuilder extends Mvc_Base {
 				break;
 			case 'checkbox' :
 				$field = new G2_FormBuilder_Field_Checkbox($fieldname, $classes, $options);
+				break;
+			case 'group' : 
+				$field = new G2_FormBuilder_Field_Group($fieldname, $classes, $options);
 				break;
 			case 'password' :
 			case 'text' :
