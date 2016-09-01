@@ -5,6 +5,7 @@ class G2_FormBuilder_Field extends Mvc_Base implements G2_FormBuilder_Field_Inte
 	protected $value;
 	protected $args;
 	protected $atrs;
+	public $required = false;
 	private $type = 'text';
 
 	/**

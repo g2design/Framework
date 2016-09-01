@@ -154,8 +154,8 @@ class G2_FormBuilder extends Mvc_Base {
 				$field = new G2_FormBuilder_Field($fieldname, $classes, $options);
 				$field->set_type($type);
 		}
-		$field->set_enviroment($env);
 		
+		$field->set_enviroment($env);
 		
 		return $field;
 	}
