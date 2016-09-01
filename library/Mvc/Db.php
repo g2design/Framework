@@ -1,6 +1,6 @@
 <?php
 
-include_once SYSTEM_DIR . '/includes/rb.phar';
+include_once SYSTEM_DIR . '/includes/rb.php';
 
 class Mvc_Db extends R {
 
